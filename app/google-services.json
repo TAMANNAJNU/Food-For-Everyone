@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "977161758162",
+    "project_id": "food-for-everyone-ed62f",
+    "storage_bucket": "food-for-everyone-ed62f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:977161758162:android:355c73596b5ef5fb06540b",
+        "android_client_info": {
+          "package_name": "com.example.foodforeveryone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "977161758162-r9buhhqvn2grbbn6v9g3miah0u81976s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPma6QTm3jp8FtqXLv5UzFEHvFINbhbR0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "977161758162-r9buhhqvn2grbbn6v9g3miah0u81976s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
