@@ -113,6 +113,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             finish();*/
         }
 
+        if (item.getItemId() == R.id.accountMenuId){
+            startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+        }
+
         if (item.getItemId() == R.id.foodCollectMenuId){
             startActivity(new Intent(getApplicationContext(), DonationPageActivity.class));
             //finish();
