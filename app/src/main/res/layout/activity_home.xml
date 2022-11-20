@@ -19,7 +19,7 @@
             android:textColor="@color/black"
             android:textSize="13dp"
             android:layout_gravity="center_horizontal"
-            tools:text="Hi, Shuvo Talukdar"
+            tools:text="Hi, Tamanna Tonni"
             android:id="@+id/nameId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

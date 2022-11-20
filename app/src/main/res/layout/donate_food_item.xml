@@ -37,7 +37,7 @@
                 android:textSize="12dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                tools:text="Name: Shuvo Talukdar" />
+                tools:text="Name: Tamanna Tonni" />
 
             <TextView
                 android:id="@+id/mobileDonateId"
@@ -47,7 +47,7 @@
                 android:textSize="12dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                tools:text="Mobile: 01630209460" />
+                tools:text="Mobile: 01731402332" />
 
             <TextView
                 android:id="@+id/addressDonateId"
