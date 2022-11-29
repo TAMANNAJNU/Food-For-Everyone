@@ -16,7 +16,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.foodforeveryone.model.MobileNumberDataModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -76,6 +75,8 @@ public class GetOTPActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
         firebaseFirestore = FirebaseFirestore.getInstance();
+
+        //firebaseAuth.getFirebaseAuthSettings().setAppVerificationDisabledForTesting(true);
 
         PhoneAuthOptions options =
                 PhoneAuthOptions.newBuilder(firebaseAuth)
@@ -161,6 +162,7 @@ public class GetOTPActivity extends AppCompatActivity {
                                         user.put("mobileNumber", strMobile);
                                         user.put("password", strPassword);
                                         user.put("userID", userID);
+                                        user.put("isAdmin", false);
 
                                         documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override

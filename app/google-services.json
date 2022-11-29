@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "977161758162",
+    "firebase_url": "https://food-for-everyone-ed62f-default-rtdb.firebaseio.com",
     "project_id": "food-for-everyone-ed62f",
     "storage_bucket": "food-for-everyone-ed62f.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "977161758162-5n2r89i2563p9htt6dd9nbff32f6m6i4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.foodforeveryone",
+            "certificate_hash": "98698eddbf569e29abc8340a3f13dda2885afd97"
+          }
+        },
         {
           "client_id": "977161758162-r9buhhqvn2grbbn6v9g3miah0u81976s.apps.googleusercontent.com",
           "client_type": 3

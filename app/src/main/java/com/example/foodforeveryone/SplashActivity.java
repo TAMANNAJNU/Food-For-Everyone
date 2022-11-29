@@ -2,6 +2,7 @@ package com.example.foodforeveryone;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.os.Handler;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.example.foodforeveryone.admin.AdminHomeActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SplashActivity extends AppCompatActivity {
@@ -26,9 +28,15 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 if (firebaseAuth.getCurrentUser() != null){
-                    Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
-                    startActivity(intent);
-                    finish();
+                    if (!getSharedPreferences("loginSessionSharedPreferences", Context.MODE_PRIVATE).getBoolean("isAdmin", false)){
+                        Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }else {
+                        Intent intent = new Intent(SplashActivity.this, AdminHomeActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
                 } else {
                     Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                     startActivity(intent);

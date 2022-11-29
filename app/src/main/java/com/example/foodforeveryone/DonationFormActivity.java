@@ -119,7 +119,8 @@ public class DonationFormActivity extends AppCompatActivity {
                 userID,
                 strUserName,
                 strUserMobileNo,
-                strUserEmail
+                strUserEmail,
+                "Pending"
         );
 
         databaseReference.child("DonationInfo")

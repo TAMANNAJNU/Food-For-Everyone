@@ -70,15 +70,31 @@
                 android:maxLines="3"
                 tools:text="Details: 10 People" />
 
-            <com.google.android.material.button.MaterialButton
-                android:layout_gravity="center_horizontal"
-                android:backgroundTint="#049AB3"
-                android:id="@+id/collectFoodId"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Collect"
-                android:textColor="#ffffff"
-                android:textSize="10dp" />
+            <RelativeLayout
+                android:id="@+id/collectLayoutId"
+                android:gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.button.MaterialButton
+                    android:backgroundTint="#049AB3"
+                    android:id="@+id/collectFoodId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Collect"
+                    android:textColor="#ffffff"
+                    android:textSize="10dp" />
+
+                <ImageView
+                    android:layout_marginLeft="10dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/phoneicon"
+                    android:layout_toRightOf="@+id/collectFoodId"
+                    android:id="@+id/callButtonId"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"/>
+
+            </RelativeLayout>
 
         </LinearLayout>
 

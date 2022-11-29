@@ -80,7 +80,9 @@ public class DonationPageActivity extends AppCompatActivity {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
                         DonationDataModel donationDataModel = dataSnapshot1.getValue(DonationDataModel.class);
-                        donationDataModelList.add(donationDataModel);
+                        if (donationDataModel.getStatus().equals("Approved")){
+                            donationDataModelList.add(donationDataModel);
+                        }
                     }
                 }
 

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,8 +48,15 @@ public class DonationPageAdapter extends RecyclerView.Adapter<DonationPageAdapte
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse("mailto:" + donationDataModel.getUserEmail()));
+            }
+        });
+
+        holder.call.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+
+                intent.setData(Uri.parse("tel:" + donationDataModel.getDonationMobileNum()));
                 context.startActivity(intent);
             }
         });
@@ -62,6 +70,7 @@ public class DonationPageAdapter extends RecyclerView.Adapter<DonationPageAdapte
     public class MyDonationViewHolder extends RecyclerView.ViewHolder {
         private TextView nameDonate, mobileDonate, addressDonate, detailsDonate;
         private Button collectFoodBtn;
+        private ImageView call;
         public MyDonationViewHolder(@NonNull View itemView) {
             super(itemView);
             nameDonate = itemView.findViewById(R.id.nameDonateId);
@@ -69,6 +78,7 @@ public class DonationPageAdapter extends RecyclerView.Adapter<DonationPageAdapte
             addressDonate = itemView.findViewById(R.id.addressDonateId);
             detailsDonate = itemView.findViewById(R.id.detailsDonateId);
             collectFoodBtn = itemView.findViewById(R.id.collectFoodId);
+            call = itemView.findViewById(R.id.callButtonId);
         }
     }
 }

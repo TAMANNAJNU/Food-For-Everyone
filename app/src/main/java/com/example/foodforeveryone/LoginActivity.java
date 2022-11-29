@@ -10,11 +10,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -24,6 +21,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.foodforeveryone.admin.AdminHomeActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -184,18 +182,25 @@ public class LoginActivity extends AppCompatActivity {
         documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
+                SharedPreferences sharedPreferences = getSharedPreferences("loginSessionSharedPreferences", Context.MODE_PRIVATE);
                 if (documentSnapshot.exists()){
-                    SharedPreferences sharedPreferences = getSharedPreferences("loginSessionSharedPreferences", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("userName", documentSnapshot.getString("name"));
                     editor.putString("userEmail", documentSnapshot.getString("email"));
                     editor.putString("userMobile", documentSnapshot.getString("mobileNumber"));
+                    editor.putBoolean("isAdmin", documentSnapshot.getBoolean("isAdmin"));
                     editor.apply();
                 }
 
                 progressDialog.dismiss();
-                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-                finish();
+
+                if (sharedPreferences.getBoolean("isAdmin", false)){
+                    startActivity(new Intent(LoginActivity.this, AdminHomeActivity.class));
+                    finish();
+                } else {
+                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                    finish();
+                }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
