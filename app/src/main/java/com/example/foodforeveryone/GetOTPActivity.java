@@ -69,7 +69,7 @@ public class GetOTPActivity extends AppCompatActivity {
         strPassword = bundle.getString("password", "");
 
         otpText = findViewById(R.id.otpTextId);
-        otpText.setText("After Successfully Verified You Are Not a Robot, OTP Will Send To Your Number " + strMobile);
+        otpText.setText(strMobile);
         otpCode = findViewById(R.id.otpCodeId);
         verifyOTPBtn = findViewById(R.id.verifyOTPBtn);
         firebaseAuth = FirebaseAuth.getInstance();
@@ -105,10 +105,10 @@ public class GetOTPActivity extends AppCompatActivity {
             return;
         }
 
-        progressDialog = new ProgressDialog(GetOTPActivity.this);
+        /*progressDialog = new ProgressDialog(GetOTPActivity.this);
         progressDialog.setMessage("Creating User, Please Wait...");
         progressDialog.setCancelable(false);
-        progressDialog.show();
+        progressDialog.show();*/
 
         verifyCode(strOTPCode);
     }
@@ -125,6 +125,7 @@ public class GetOTPActivity extends AppCompatActivity {
         public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
             String codeByUser = phoneAuthCredential.getSmsCode();
             if (codeByUser != null) {
+                otpCode.setText(codeByUser);
                 verifyCode(codeByUser);
             }
         }
@@ -136,6 +137,11 @@ public class GetOTPActivity extends AppCompatActivity {
     };
 
     private void verifyCode(String codeByUser) {
+
+        progressDialog = new ProgressDialog(GetOTPActivity.this);
+        progressDialog.setMessage("OTP Verifying & Creating User...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationCodeBySystem, codeByUser);
         signInUserByCredential(credential);
     }

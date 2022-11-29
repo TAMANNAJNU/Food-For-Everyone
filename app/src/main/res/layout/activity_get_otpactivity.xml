@@ -25,13 +25,24 @@
         android:layout_height="wrap_content"/>
 
     <TextView
-        android:id="@+id/otpTextId"
         android:textSize="12dp"
-        android:textColor="#416468"
+        android:textColor="#3F7F87"
         android:textStyle="bold"
         android:layout_marginTop="30dp"
         android:layout_gravity="center_horizontal"
-        tools:text="After Successfully Verified You Are Not a Robot, OTP Will Send To Your Number"
+        tools:text="OTP Will Send To Your Number"
+        android:layout_width="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/otpTextId"
+        android:textSize="13dp"
+        android:textColor="#30818A"
+        android:textStyle="bold"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center_horizontal"
+        tools:text="01555555555"
         android:layout_width="wrap_content"
         android:layout_marginBottom="20dp"
         android:layout_height="wrap_content"/>
