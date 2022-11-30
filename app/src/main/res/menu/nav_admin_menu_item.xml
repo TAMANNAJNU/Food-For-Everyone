@@ -15,6 +15,11 @@
             android:icon="@drawable/account_icon"/>
 
         <item
+            android:id="@+id/requestMenu"
+            android:title="Collect Request"
+            android:icon="@drawable/foodcollect"/>
+
+        <item
             android:id="@+id/logoutMenu"
             android:title="Logout"
             android:icon="@drawable/logout"/>

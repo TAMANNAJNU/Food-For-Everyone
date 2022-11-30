@@ -9,6 +9,13 @@
     android:background="@color/white"
     tools:context=".admin.AdminHomeActivity">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/adminRecyclerViewId"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical">
+    </androidx.recyclerview.widget.RecyclerView>
+
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -18,6 +25,7 @@
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_admin_header">
     </com.google.android.material.navigation.NavigationView>
+
 
 
 </androidx.drawerlayout.widget.DrawerLayout>

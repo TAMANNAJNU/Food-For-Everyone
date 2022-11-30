@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="245dp"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="245dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         app:cardBackgroundColor="#CBF0FB"
@@ -20,7 +20,7 @@
             android:padding="3dp"
             android:layout_marginStart="3dp"
             android:layout_width="match_parent"
-            android:layout_height="245dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <ImageView
@@ -71,6 +71,8 @@
                 tools:text="Details: 10 People" />
 
             <RelativeLayout
+                tools:visibility="visible"
+                android:visibility="gone"
                 android:id="@+id/collectLayoutId"
                 android:gravity="center_horizontal"
                 android:layout_width="match_parent"
@@ -95,6 +97,44 @@
                     android:layout_height="40dp"/>
 
             </RelativeLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:backgroundTint="#049AB3"
+                android:id="@+id/approvedId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Approved"
+                android:layout_gravity="center_horizontal"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:textColor="#ffffff"
+                android:textSize="10dp" />
+
+            <LinearLayout
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical"
+                android:id="@+id/tokenLayoutId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.button.MaterialButton
+                    android:backgroundTint="#049AB3"
+                    android:id="@+id/requestedId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Notify"
+                    android:textColor="#ffffff"
+                    android:textSize="10dp" />
+
+                <TextView
+                    android:text="Token"
+                    android:id="@+id/tokenTVId"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+            </LinearLayout>
 
         </LinearLayout>
 

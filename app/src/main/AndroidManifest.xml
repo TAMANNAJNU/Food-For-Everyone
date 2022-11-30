@@ -16,9 +16,13 @@
         android:theme="@style/Theme.FoodForEveryone"
         tools:targetApi="31">
         <activity
-            android:name=".admin.AdminHomeActivity"
-            android:exported="false">
+            android:name=".admin.CollectRequestActivity"
+            android:exported="false"
+            android:parentActivityName=".admin.AdminHomeActivity">
         </activity>
+        <activity
+            android:name=".admin.AdminHomeActivity"
+            android:exported="false"></activity>
         <activity
             android:name=".ProfileActivity"
             android:exported="false"
