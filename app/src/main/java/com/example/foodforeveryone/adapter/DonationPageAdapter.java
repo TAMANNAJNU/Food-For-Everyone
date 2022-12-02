@@ -1,5 +1,7 @@
 package com.example.foodforeveryone.adapter;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -19,8 +21,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodforeveryone.R;
 import com.example.foodforeveryone.model.DonationDataModel;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -47,6 +52,7 @@ public class DonationPageAdapter extends RecyclerView.Adapter<DonationPageAdapte
         holder.mobileDonate.setText("Mobile: " + donationDataModel.getDonationMobileNum());
         holder.addressDonate.setText("Address: " + donationDataModel.getDonationAddress());
         holder.detailsDonate.setText("Details: " + donationDataModel.getDonationFoodDescription());
+        holder.tokenTv.setText(donationDataModel.getUserToken());
 
         if (donationDataModel.getStatus().equals("Approved")){
             holder.collectLayout.setVisibility(View.VISIBLE);
@@ -95,9 +101,14 @@ public class DonationPageAdapter extends RecyclerView.Adapter<DonationPageAdapte
         holder.requestedBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference reference = database.getReference();
-                reference.child("")*/
+
+            }
+        });
+
+        holder.tokenTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setClipboard(context, donationDataModel.getUserToken());
             }
         });
     }
@@ -108,7 +119,7 @@ public class DonationPageAdapter extends RecyclerView.Adapter<DonationPageAdapte
     }
 
     public class MyDonationViewHolder extends RecyclerView.ViewHolder {
-        private TextView nameDonate, mobileDonate, addressDonate, detailsDonate;
+        private TextView nameDonate, mobileDonate, addressDonate, detailsDonate, tokenTv;
         private Button collectFoodBtn, approvedBtn, requestedBtn;
         private ImageView call;
         private RelativeLayout collectLayout;
@@ -125,6 +136,20 @@ public class DonationPageAdapter extends RecyclerView.Adapter<DonationPageAdapte
             collectLayout = itemView.findViewById(R.id.collectLayoutId);
             requestedBtn = itemView.findViewById(R.id.requestedId);
             tokenLayout = itemView.findViewById(R.id.tokenLayoutId);
+            tokenTv = itemView.findViewById(R.id.tokenTVId);
         }
+    }
+
+    private void setClipboard(Context context, String text) {
+        if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
+            android.text.ClipboardManager clipboard = (android.text.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+            clipboard.setText(text);
+        } else {
+            android.content.ClipboardManager clipboard = (android.content.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+            android.content.ClipData clip = android.content.ClipData.newPlainText("Copied Text", text);
+            clipboard.setPrimaryClip(clip);
+        }
+
+        Toast.makeText(context, "Copied", Toast.LENGTH_SHORT).show();
     }
 }

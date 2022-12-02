@@ -58,24 +58,20 @@
                 app:drawableTint="@color/red" />
 
 
-            <EditText
+            <TextView
                 android:id="@+id/donationMobileNoId"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/bg_edit_text"
-                android:hint="Enter Your Mobile Number"
-                android:importantForAutofill="no"
-                android:inputType="number"
                 android:maxLength="11"
                 android:paddingStart="16dp"
                 android:paddingTop="8dp"
                 android:paddingEnd="16dp"
                 android:paddingBottom="8dp"
+                tools:text="01555555555"
                 android:textColor="@color/black"
-                android:textSize="14dp"
-                app:drawableEndCompat="@drawable/ic_star"
-                app:drawableTint="@color/red" />
+                android:textSize="14dp"/>
 
             <EditText
                 android:gravity="start"

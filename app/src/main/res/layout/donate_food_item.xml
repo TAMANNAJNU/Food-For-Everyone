@@ -111,6 +111,7 @@
                 android:textSize="10dp" />
 
             <LinearLayout
+                android:layout_margin="10dp"
                 android:layout_gravity="center_horizontal"
                 android:orientation="vertical"
                 android:id="@+id/tokenLayoutId"
@@ -123,10 +124,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Notify"
+                    android:visibility="gone"
                     android:textColor="#ffffff"
                     android:textSize="10dp" />
 
                 <TextView
+                    android:background="@drawable/bg_token"
+                    android:padding="15dp"
                     android:text="Token"
                     android:id="@+id/tokenTVId"
                     android:layout_gravity="center_horizontal"

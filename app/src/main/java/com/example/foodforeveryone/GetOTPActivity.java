@@ -168,6 +168,7 @@ public class GetOTPActivity extends AppCompatActivity {
                                         user.put("mobileNumber", strMobile);
                                         user.put("password", strPassword);
                                         user.put("userID", userID);
+                                        user.put("token", "");
                                         user.put("isAdmin", false);
 
                                         documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {

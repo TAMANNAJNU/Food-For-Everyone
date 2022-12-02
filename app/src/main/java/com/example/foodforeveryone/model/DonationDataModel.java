@@ -11,11 +11,12 @@ public class DonationDataModel {
     private String userMobileNo;
     private String userEmail;
     private String status;
+    private String userToken;
 
     public DonationDataModel() {
     }
 
-    public DonationDataModel(String donationName, String donationMobileNum, String donationAddress, String donationFoodDescription, String pushKey, String userID, String userName, String userMobileNo, String userEmail, String status) {
+    public DonationDataModel(String donationName, String donationMobileNum, String donationAddress, String donationFoodDescription, String pushKey, String userID, String userName, String userMobileNo, String userEmail, String status, String userToken) {
         this.donationName = donationName;
         this.donationMobileNum = donationMobileNum;
         this.donationAddress = donationAddress;
@@ -26,6 +27,7 @@ public class DonationDataModel {
         this.userMobileNo = userMobileNo;
         this.userEmail = userEmail;
         this.status = status;
+        this.userToken = userToken;
     }
 
     public String getDonationName() {
@@ -106,5 +108,13 @@ public class DonationDataModel {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getUserToken() {
+        return userToken;
+    }
+
+    public void setUserToken(String userToken) {
+        this.userToken = userToken;
     }
 }

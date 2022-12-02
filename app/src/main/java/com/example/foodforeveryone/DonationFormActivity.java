@@ -16,6 +16,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.foodforeveryone.model.DonationDataModel;
@@ -28,9 +29,10 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class DonationFormActivity extends AppCompatActivity {
 
-    private EditText name, mobile, address, description;
+    private EditText name, address, description;
+    private TextView mobile;
     private Button submit;
-    private String strName, strMobile, strAddress, strDescription, userID, pushKey, strUserName, strUserMobileNo, strUserEmail;
+    private String strName, strMobile, strAddress, strDescription, userID, pushKey, strUserName, strUserMobileNo, strUserEmail, strUserToken;
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
 
@@ -61,9 +63,12 @@ public class DonationFormActivity extends AppCompatActivity {
         description = findViewById(R.id.donationDescriptionId);
         submit = findViewById(R.id.donationSubmitBtnId);
 
+        strMobile = getSharedPreferences("loginSessionSharedPreferences", Context.MODE_PRIVATE).getString("userMobile", "");
+        mobile.setText(strMobile);
         strUserName = getSharedPreferences("loginSessionSharedPreferences", Context.MODE_PRIVATE).getString("userName", "");
         strUserMobileNo = getSharedPreferences("loginSessionSharedPreferences", Context.MODE_PRIVATE).getString("userMobile", "");
         strUserEmail = getSharedPreferences("loginSessionSharedPreferences", Context.MODE_PRIVATE).getString("userEmail", "");
+        strUserToken = getSharedPreferences("loginSessionSharedPreferences", Context.MODE_PRIVATE).getString("userToken", "");
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +80,6 @@ public class DonationFormActivity extends AppCompatActivity {
 
     private void submitFormData() {
         strName = name.getText().toString().trim();
-        strMobile = mobile.getText().toString().trim();
         strAddress = address.getText().toString().trim();
         strDescription = description.getText().toString().trim();
         userID = firebaseAuth.getCurrentUser().getUid();
@@ -84,12 +88,6 @@ public class DonationFormActivity extends AppCompatActivity {
         if (strName.isEmpty()){
             name.setError("Required Field");
             name.requestFocus();
-            return;
-        }
-
-        if (strMobile.isEmpty()){
-            mobile.setError("Required Field");
-            mobile.requestFocus();
             return;
         }
 
@@ -120,7 +118,8 @@ public class DonationFormActivity extends AppCompatActivity {
                 strUserName,
                 strUserMobileNo,
                 strUserEmail,
-                "Pending"
+                "Pending",
+                strUserToken
         );
 
         databaseReference.child("DonationInfo")

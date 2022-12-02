@@ -62,7 +62,7 @@ public class CollectRequestActivity extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference();
         userID = firebaseAuth.getCurrentUser().getUid();
         recyclerView = findViewById(R.id.requestRecyclerViewId);
-        gridLayoutManager = new GridLayoutManager(CollectRequestActivity.this,2);
+        gridLayoutManager = new GridLayoutManager(CollectRequestActivity.this,1);
         recyclerView.setLayoutManager(gridLayoutManager);
         donationDataModelList = new ArrayList<>();
         donationPageAdapter = new DonationPageAdapter(CollectRequestActivity.this, donationDataModelList);

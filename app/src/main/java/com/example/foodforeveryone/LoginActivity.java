@@ -21,14 +21,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.example.foodforeveryone.admin.AdminHomeActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -39,7 +44,9 @@ public class LoginActivity extends AppCompatActivity {
     private AlertDialog.Builder reset_alert;
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firebaseFirestore;
+    private DatabaseReference databaseReference;
     private String userID;
+    private String firebaseToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +65,7 @@ public class LoginActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
         etEmail = findViewById(R.id.etLoginEmail);
         etPassword = findViewById(R.id.etLoginPassword);
@@ -165,7 +173,22 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onSuccess(AuthResult authResult) {
                 userID = firebaseAuth.getCurrentUser().getUid();
-                saveLoginSessionData(userID, progressDialog);
+                FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (task.isSuccessful()){
+                            firebaseToken = task.getResult();
+                            saveLoginSessionData(userID, progressDialog, firebaseToken);
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        firebaseAuth.signOut();
+                        progressDialog.dismiss();
+                        Toast.makeText(getApplicationContext(), "Token Doesn't Save, Please Login Again", Toast.LENGTH_LONG).show();
+                    }
+                });
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -177,7 +200,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void saveLoginSessionData(String userID, ProgressDialog progressDialog) {
+    private void saveLoginSessionData(String userID, ProgressDialog progressDialog, String firebaseToken) {
         DocumentReference documentReference = firebaseFirestore.collection("users").document(userID);
         documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -188,9 +211,13 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putString("userName", documentSnapshot.getString("name"));
                     editor.putString("userEmail", documentSnapshot.getString("email"));
                     editor.putString("userMobile", documentSnapshot.getString("mobileNumber"));
+                    //editor.putString("userToken", firebaseToken);
                     editor.putBoolean("isAdmin", documentSnapshot.getBoolean("isAdmin"));
                     editor.apply();
+
+                    databaseReference.child("UserLoginToken").child(documentSnapshot.getString("mobileNumber")).setValue(firebaseToken);
                 }
+
 
                 progressDialog.dismiss();
 
