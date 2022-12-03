@@ -211,7 +211,7 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putString("userName", documentSnapshot.getString("name"));
                     editor.putString("userEmail", documentSnapshot.getString("email"));
                     editor.putString("userMobile", documentSnapshot.getString("mobileNumber"));
-                    //editor.putString("userToken", firebaseToken);
+                    editor.putString("userToken", firebaseToken);
                     editor.putBoolean("isAdmin", documentSnapshot.getBoolean("isAdmin"));
                     editor.apply();
 
