@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.example.foodforeveryone.admin.AdminHomeActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -173,6 +174,23 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onSuccess(AuthResult authResult) {
                 userID = firebaseAuth.getCurrentUser().getUid();
+                FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (task.isSuccessful()){
+                            firebaseToken = task.getResult();
+                            databaseReference.child("UserLoginToken").child(userID).setValue(firebaseToken);
+                            saveLoginSessionData(userID, progressDialog);
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        firebaseAuth.signOut();
+                        progressDialog.dismiss();
+                        Toast.makeText(getApplicationContext(), "Token Doesn't Save, Please Login Again", Toast.LENGTH_LONG).show();
+                    }
+                });
                 FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
                     @Override
                     public void onComplete(@NonNull Task<String> task) {
