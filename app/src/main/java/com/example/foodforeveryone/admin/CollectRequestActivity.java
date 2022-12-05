@@ -11,8 +11,10 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.foodforeveryone.DonationPageActivity;
@@ -31,6 +33,7 @@ import java.util.List;
 
 public class CollectRequestActivity extends AppCompatActivity {
 
+    private TextView emptyData;
     private String userID;
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
@@ -46,7 +49,7 @@ public class CollectRequestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_collect_request);
 
         ActionBar bar = getSupportActionBar();
-        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#636A6C")));
+        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#6A6063")));
         bar.setDisplayHomeAsUpEnabled(true);
         bar.setDisplayShowHomeEnabled(true);
         //bar.hide();
@@ -55,7 +58,7 @@ public class CollectRequestActivity extends AppCompatActivity {
             Window window = this.getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setStatusBarColor(this.getResources().getColor(R.color.end_color));
+            window.setStatusBarColor(this.getResources().getColor(R.color.admin_end_color));
         }
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -71,6 +74,7 @@ public class CollectRequestActivity extends AppCompatActivity {
     }
 
     private void fetchRequestData(String userID) {
+        emptyData = findViewById(R.id.emptyDataId);
         ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading Donation Data...");
         progressDialog.setCancelable(false);
@@ -89,6 +93,13 @@ public class CollectRequestActivity extends AppCompatActivity {
                 }
 
                 donationPageAdapter.notifyDataSetChanged();
+
+                if (donationDataModelList.size() == 0){
+                    emptyData.setVisibility(View.VISIBLE);
+                }else {
+                    emptyData.setVisibility(View.GONE);
+                }
+
                 progressDialog.dismiss();
             }
 

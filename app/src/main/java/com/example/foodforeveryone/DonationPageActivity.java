@@ -11,8 +11,10 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.foodforeveryone.adapter.DonationPageAdapter;
@@ -29,6 +31,7 @@ import java.util.List;
 
 public class DonationPageActivity extends AppCompatActivity {
 
+    private TextView emptyData;
     private String userID;
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
@@ -69,6 +72,7 @@ public class DonationPageActivity extends AppCompatActivity {
     }
 
     private void fetchDonationData(String userID) {
+        emptyData = findViewById(R.id.emptyDataId);
         ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading Donation Data...");
         progressDialog.setCancelable(false);
@@ -87,6 +91,13 @@ public class DonationPageActivity extends AppCompatActivity {
                 }
 
                 donationPageAdapter.notifyDataSetChanged();
+
+                if (donationDataModelList.size() == 0){
+                    emptyData.setVisibility(View.VISIBLE);
+                }else {
+                    emptyData.setVisibility(View.GONE);
+                }
+
                 progressDialog.dismiss();
             }
 

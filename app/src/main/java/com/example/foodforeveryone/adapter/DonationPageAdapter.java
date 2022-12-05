@@ -1,8 +1,11 @@
 package com.example.foodforeveryone.adapter;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
@@ -37,7 +40,6 @@ import java.util.List;
 public class DonationPageAdapter extends RecyclerView.Adapter<DonationPageAdapter.MyDonationViewHolder> {
     Context context;
     List<DonationDataModel> donationDataModelList;
-    FirebaseFirestore firebaseFirestore;
 
     public DonationPageAdapter(Context context, List<DonationDataModel> donationDataModelList) {
         this.context = context;
@@ -65,11 +67,11 @@ public class DonationPageAdapter extends RecyclerView.Adapter<DonationPageAdapte
 
         if (donationDataModel.getStatus().equals("Approved")){
             holder.collectLayout.setVisibility(View.VISIBLE);
-            holder.approvedBtn.setVisibility(View.GONE);
+            holder.approveRejectLayout.setVisibility(View.GONE);
             holder.tokenLayout.setVisibility(View.GONE);
             holder.collectorDetailLayout.setVisibility(View.GONE);
         } else if (donationDataModel.getStatus().equals("Pending")){
-            holder.approvedBtn.setVisibility(View.VISIBLE);
+            holder.approveRejectLayout.setVisibility(View.VISIBLE);
             holder.collectLayout.setVisibility(View.GONE);
             holder.tokenLayout.setVisibility(View.GONE);
             holder.collectorDetailLayout.setVisibility(View.GONE);
@@ -77,46 +79,108 @@ public class DonationPageAdapter extends RecyclerView.Adapter<DonationPageAdapte
             holder.tokenLayout.setVisibility(View.VISIBLE);
             holder.collectorDetailLayout.setVisibility(View.VISIBLE);
             holder.collectLayout.setVisibility(View.GONE);
-            holder.approvedBtn.setVisibility(View.GONE);
+            holder.approveRejectLayout.setVisibility(View.GONE);
         }
+
+        holder.rejectBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AlertDialog alertDialog = new AlertDialog.Builder(context)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Confirmation")
+                        .setMessage("Do you really want to delete?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                ProgressDialog progressdialog = new ProgressDialog(context);
+                                progressdialog.setCancelable(false);
+                                progressdialog.setMessage("Please Wait....");
+                                dialogInterface.dismiss();
+                                progressdialog.show();
+
+                                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                DatabaseReference reference = database.getReference();
+                                reference.child("DonationInfo")
+                                        .child(donationDataModel.getUserID())
+                                        .child(donationDataModel.getPushKey())
+                                        .removeValue();
+
+                                progressdialog.dismiss();
+                                Toast.makeText(context, "Deleted Successfully", Toast.LENGTH_LONG).show();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        })
+                        .show();
+            }
+        });
 
         holder.collectFoodBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference reference = database.getReference();
+                AlertDialog alertDialog = new AlertDialog.Builder(context)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Confirmation")
+                        .setMessage("Do you really want to collect?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                ProgressDialog progressdialog = new ProgressDialog(context);
+                                progressdialog.setCancelable(false);
+                                progressdialog.setMessage("Please Wait....");
+                                dialogInterface.dismiss();
+                                progressdialog.show();
 
-                DocumentReference documentReference = FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if (documentSnapshot.exists()){
+                                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                DatabaseReference reference = database.getReference();
 
-                            DonationDataModel model = new DonationDataModel(
-                                    donationDataModel.getDonationName(),
-                                    donationDataModel.getDonationMobileNum(),
-                                    donationDataModel.getDonationAddress(),
-                                    donationDataModel.getDonationFoodDescription(),
-                                    donationDataModel.getPushKey(),
-                                    donationDataModel.getUserID(),
-                                    donationDataModel.getUserName(),
-                                    donationDataModel.getUserMobileNo(),
-                                    donationDataModel.getUserEmail(),
-                                    "Requested",
-                                    donationDataModel.getUserToken(),
-                                    documentSnapshot.getString("name"),
-                                    documentSnapshot.getString("mobileNumber"),
-                                    ""
-                            );
+                                DocumentReference documentReference = FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                        if (documentSnapshot.exists()){
 
-                            reference.child("DonationInfo")
-                                    .child(donationDataModel.getUserID())
-                                    .child(donationDataModel.getPushKey())
-                                    .setValue(model);
-                        }
-                    }
-                });
+                                            DonationDataModel model = new DonationDataModel(
+                                                    donationDataModel.getDonationName(),
+                                                    donationDataModel.getDonationMobileNum(),
+                                                    donationDataModel.getDonationAddress(),
+                                                    donationDataModel.getDonationFoodDescription(),
+                                                    donationDataModel.getPushKey(),
+                                                    donationDataModel.getUserID(),
+                                                    donationDataModel.getUserName(),
+                                                    donationDataModel.getUserMobileNo(),
+                                                    donationDataModel.getUserEmail(),
+                                                    "Requested",
+                                                    donationDataModel.getUserToken(),
+                                                    documentSnapshot.getString("name"),
+                                                    documentSnapshot.getString("mobileNumber"),
+                                                    ""
+                                            );
+
+                                            reference.child("DonationInfo")
+                                                    .child(donationDataModel.getUserID())
+                                                    .child(donationDataModel.getPushKey())
+                                                    .setValue(model);
+                                        }
+                                    }
+                                });
+                                progressdialog.dismiss();
+                                Toast.makeText(context, "Collected Successfully", Toast.LENGTH_LONG).show();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        })
+                        .show();
             }
         });
 
@@ -133,17 +197,72 @@ public class DonationPageAdapter extends RecyclerView.Adapter<DonationPageAdapte
         holder.approvedBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference reference = database.getReference();
-                reference.child("DonationInfo").child(donationDataModel.getUserID()).child(donationDataModel.getPushKey())
-                        .child("status").setValue("Approved");
+
+                AlertDialog alertDialog = new AlertDialog.Builder(context)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Confirmation")
+                        .setMessage("Do you really want to approve?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                ProgressDialog progressdialog = new ProgressDialog(context);
+                                progressdialog.setCancelable(false);
+                                progressdialog.setMessage("Please Wait....");
+                                dialogInterface.dismiss();
+                                progressdialog.show();
+
+                                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                DatabaseReference reference = database.getReference();
+                                reference.child("DonationInfo").child(donationDataModel.getUserID()).child(donationDataModel.getPushKey())
+                                        .child("status").setValue("Approved");
+
+                                progressdialog.dismiss();
+                                Toast.makeText(context, "Approved Successfully", Toast.LENGTH_LONG).show();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        })
+                        .show();
             }
         });
 
-        holder.requestedBtn.setOnClickListener(new View.OnClickListener() {
+        holder.requestRejectBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                AlertDialog alertDialog = new AlertDialog.Builder(context)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Confirmation")
+                        .setMessage("Do you really want to reject?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                ProgressDialog progressdialog = new ProgressDialog(context);
+                                progressdialog.setCancelable(false);
+                                progressdialog.setMessage("Please Wait....");
+                                dialogInterface.dismiss();
+                                progressdialog.show();
+
+                                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                DatabaseReference reference = database.getReference();
+                                reference.child("DonationInfo").child(donationDataModel.getUserID()).child(donationDataModel.getPushKey())
+                                        .child("status").setValue("Approved");
+
+                                progressdialog.dismiss();
+                                Toast.makeText(context, "Rejected Successfully", Toast.LENGTH_LONG).show();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        })
+                        .show();
             }
         });
 
@@ -162,10 +281,10 @@ public class DonationPageAdapter extends RecyclerView.Adapter<DonationPageAdapte
 
     public class MyDonationViewHolder extends RecyclerView.ViewHolder {
         private TextView nameDonate, mobileDonate, addressDonate, detailsDonate, tokenTv, collectorName, collectorMobile, collectorAddress;
-        private Button collectFoodBtn, approvedBtn, requestedBtn;
+        private Button collectFoodBtn, approvedBtn, requestRejectBtn, rejectBtn;
         private ImageView call;
         private RelativeLayout collectLayout;
-        private LinearLayout tokenLayout, collectorDetailLayout;
+        private LinearLayout tokenLayout, collectorDetailLayout, approveRejectLayout;
         public MyDonationViewHolder(@NonNull View itemView) {
             super(itemView);
             nameDonate = itemView.findViewById(R.id.nameDonateId);
@@ -176,13 +295,15 @@ public class DonationPageAdapter extends RecyclerView.Adapter<DonationPageAdapte
             call = itemView.findViewById(R.id.callButtonId);
             approvedBtn = itemView.findViewById(R.id.approvedId);
             collectLayout = itemView.findViewById(R.id.collectLayoutId);
-            requestedBtn = itemView.findViewById(R.id.requestedId);
+            requestRejectBtn = itemView.findViewById(R.id.requestRejectId);
             tokenLayout = itemView.findViewById(R.id.tokenLayoutId);
             tokenTv = itemView.findViewById(R.id.tokenTVId);
             collectorName = itemView.findViewById(R.id.nameCollectorId);
             collectorMobile = itemView.findViewById(R.id.mobileCollectorId);
             collectorAddress = itemView.findViewById(R.id.addressCollectorId);
             collectorDetailLayout = itemView.findViewById(R.id.collectorDetailsLayout);
+            approveRejectLayout = itemView.findViewById(R.id.approveRejectLayout);
+            rejectBtn = itemView.findViewById(R.id.rejectId);
         }
     }
 
@@ -196,6 +317,14 @@ public class DonationPageAdapter extends RecyclerView.Adapter<DonationPageAdapte
             clipboard.setPrimaryClip(clip);
         }
 
-        Toast.makeText(context, "Copied", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "Copied Token", Toast.LENGTH_SHORT).show();
     }
+
+    /*private void showProgressDialog(Context activityContext){
+        ProgressDialog progressdialog = new ProgressDialog(activityContext);
+        progressdialog.setCancelable(false);
+        progressdialog.setMessage("Please Wait....");
+        progressdialog.show();
+    }*/
+
 }

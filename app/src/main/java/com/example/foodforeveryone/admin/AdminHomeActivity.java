@@ -44,7 +44,7 @@ import java.util.List;
 
 public class AdminHomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
-    private TextView navHeaderUsername;
+    private TextView navHeaderUsername, emptyData;
     private View hView;
     private ActionBarDrawerToggle toggle;
     private DrawerLayout drawerLayout;
@@ -63,7 +63,7 @@ public class AdminHomeActivity extends AppCompatActivity implements NavigationVi
         setContentView(R.layout.activity_admin_home);
 
         ActionBar bar = getSupportActionBar();
-        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#636A6C")));
+        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#6A6063")));
         bar.setDisplayHomeAsUpEnabled(true);
         bar.setDisplayShowHomeEnabled(true);
 
@@ -71,7 +71,7 @@ public class AdminHomeActivity extends AppCompatActivity implements NavigationVi
             Window window = this.getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setStatusBarColor(this.getResources().getColor(R.color.end_color));
+            window.setStatusBarColor(this.getResources().getColor(R.color.admin_end_color));
         }
 
         strName = getSharedPreferences("loginSessionSharedPreferences", Context.MODE_PRIVATE).getString("userName", "Admin Name");
@@ -141,6 +141,7 @@ public class AdminHomeActivity extends AppCompatActivity implements NavigationVi
     }
 
     private void fetchPendingOrder(String userID) {
+        emptyData = findViewById(R.id.emptyDataId);
         ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading Donation Data...");
         progressDialog.setCancelable(false);
@@ -159,7 +160,15 @@ public class AdminHomeActivity extends AppCompatActivity implements NavigationVi
                 }
 
                 donationPageAdapter.notifyDataSetChanged();
+
+                if (donationDataModelList.size() == 0){
+                    emptyData.setVisibility(View.VISIBLE);
+                }else {
+                    emptyData.setVisibility(View.GONE);
+                }
+
                 progressDialog.dismiss();
+
             }
 
             @Override

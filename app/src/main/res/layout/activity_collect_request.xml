@@ -10,8 +10,22 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/requestRecyclerViewId"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:scrollbars="vertical">
+
     </androidx.recyclerview.widget.RecyclerView>
+
+    <TextView
+        tools:visibility="visible"
+        android:visibility="gone"
+        android:id="@+id/emptyDataId"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textColor="@color/admin_end_color"
+        android:textSize="25sp"
+        android:layout_gravity="center_horizontal"
+        android:text="Donation Information is Empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

@@ -17,179 +17,201 @@
         app:cardUseCompatPadding="true">
 
         <LinearLayout
-            android:padding="3dp"
-            android:layout_marginStart="3dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginStart="3dp"
+            android:orientation="vertical"
+            android:padding="3dp">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:src="@drawable/food" />
+
             <View
-                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginTop="5dp"
                 android:background="@android:color/black" />
 
             <TextView
-                android:layout_marginTop="5dp"
                 android:id="@+id/nameDonateId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textSize="12dp"
+                android:layout_marginTop="5dp"
                 android:ellipsize="end"
                 android:maxLines="1"
+                android:textColor="@color/black"
+                android:textSize="12dp"
                 tools:text="Name: Tamanna Tonni" />
 
             <TextView
                 android:id="@+id/mobileDonateId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textSize="12dp"
                 android:ellipsize="end"
                 android:maxLines="1"
+                android:textColor="@color/black"
+                android:textSize="12dp"
                 tools:text="Mobile: 01731402332" />
 
             <TextView
                 android:id="@+id/addressDonateId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textSize="12dp"
                 android:ellipsize="end"
                 android:maxLines="2"
+                android:textColor="@color/black"
+                android:textSize="12dp"
                 tools:text="Address: Kawranbazar, Dhaka" />
 
             <TextView
                 android:id="@+id/detailsDonateId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textSize="12dp"
                 android:ellipsize="end"
                 android:maxLength="50"
                 android:maxLines="3"
+                android:textColor="@color/black"
+                android:textSize="12dp"
                 tools:text="Details: 10 People" />
 
             <LinearLayout
                 android:id="@+id/collectorDetailsLayout"
-                android:layout_marginTop="10dp"
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
 
                 <TextView
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:textSize="15sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="Collector Details"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:layout_marginTop="10dp"
                     android:id="@+id/nameCollectorId"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:textSize="12dp"
+                    android:layout_marginTop="10dp"
                     android:ellipsize="end"
                     android:maxLines="1"
+                    android:textColor="@color/black"
+                    android:textSize="12dp"
                     tools:text="Collector Name: Tamanna Tonni" />
 
                 <TextView
                     android:id="@+id/mobileCollectorId"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:textSize="12dp"
                     android:ellipsize="end"
                     android:maxLines="1"
+                    android:textColor="@color/black"
+                    android:textSize="12dp"
                     tools:text="Collector Mobile: 01731402332" />
 
                 <TextView
                     android:id="@+id/addressCollectorId"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:textSize="12dp"
                     android:ellipsize="end"
                     android:maxLines="2"
+                    android:textColor="@color/black"
+                    android:textSize="12dp"
                     tools:text="Collector Address: Kawranbazar, Dhaka" />
 
             </LinearLayout>
 
             <RelativeLayout
-                tools:visibility="visible"
-                android:visibility="gone"
                 android:id="@+id/collectLayoutId"
-                android:gravity="center_horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:visibility="gone"
+                tools:visibility="visible">
 
                 <com.google.android.material.button.MaterialButton
-                    android:backgroundTint="#049AB3"
                     android:id="@+id/collectFoodId"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="#049AB3"
                     android:text="Collect"
                     android:textColor="#ffffff"
                     android:textSize="10dp" />
 
                 <ImageView
-                    android:layout_marginLeft="10dp"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/phoneicon"
-                    android:layout_toRightOf="@+id/collectFoodId"
                     android:id="@+id/callButtonId"
                     android:layout_width="40dp"
-                    android:layout_height="40dp"/>
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/collectFoodId"
+                    android:src="@drawable/phoneicon" />
 
             </RelativeLayout>
 
-            <com.google.android.material.button.MaterialButton
-                android:backgroundTint="#049AB3"
-                android:id="@+id/approvedId"
+            <LinearLayout
+                android:id="@+id/approveRejectLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Approved"
                 android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
                 android:visibility="gone"
                 tools:visibility="visible"
-                android:textColor="#ffffff"
-                android:textSize="10dp" />
-
-            <LinearLayout
-                android:layout_margin="10dp"
-                android:layout_gravity="center_horizontal"
-                android:orientation="vertical"
-                android:id="@+id/tokenLayoutId"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:orientation="horizontal">
 
                 <com.google.android.material.button.MaterialButton
-                    android:backgroundTint="#049AB3"
-                    android:id="@+id/requestedId"
+                    android:id="@+id/approvedId"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Notify"
-                    android:visibility="gone"
+                    android:backgroundTint="#049AB3"
+                    android:text="Approve"
                     android:textColor="#ffffff"
-                    android:textSize="10dp" />
+                    android:layout_marginRight="5dp"
+                    android:textSize="10dp"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/rejectId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#049AB3"
+                    android:text="Delete"
+                    android:textColor="#ffffff"
+                    android:textSize="10dp"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/tokenLayoutId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:orientation="vertical">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/requestRejectId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#049AB3"
+                    android:text="Reject"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="#ffffff"
+                    android:textSize="10dp"/>
 
                 <TextView
+                    android:id="@+id/tokenTVId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
                     android:background="@drawable/bg_token"
                     android:padding="15dp"
-                    android:text="Token"
-                    android:id="@+id/tokenTVId"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:text="Token" />
 
 
             </LinearLayout>
