@@ -180,7 +180,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()){
                             firebaseToken = task.getResult();
                             databaseReference.child("UserLoginToken").child(userID).setValue(firebaseToken);
-                            saveLoginSessionData(userID, progressDialog);
+                            saveLoginSessionData(userID, progressDialog, firebaseToken);
                         }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
