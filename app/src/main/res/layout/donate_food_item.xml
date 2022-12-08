@@ -113,7 +113,7 @@
                     android:textSize="12dp"
                     tools:text="Collector Mobile: 01731402332" />
 
-                <TextView
+                <!--<TextView
                     android:id="@+id/addressCollectorId"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -121,7 +121,7 @@
                     android:maxLines="2"
                     android:textColor="@color/black"
                     android:textSize="12dp"
-                    tools:text="Collector Address: Kawranbazar, Dhaka" />
+                    tools:text="Collector Address: Kawranbazar, Dhaka" />-->
 
             </LinearLayout>
 

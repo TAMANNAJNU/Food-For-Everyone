@@ -280,7 +280,7 @@ public class DonationPageAdapter extends RecyclerView.Adapter<DonationPageAdapte
     }
 
     public class MyDonationViewHolder extends RecyclerView.ViewHolder {
-        private TextView nameDonate, mobileDonate, addressDonate, detailsDonate, tokenTv, collectorName, collectorMobile, collectorAddress;
+        private TextView nameDonate, mobileDonate, addressDonate, detailsDonate, tokenTv, collectorName, collectorMobile;
         private Button collectFoodBtn, approvedBtn, requestRejectBtn, rejectBtn;
         private ImageView call;
         private RelativeLayout collectLayout;
@@ -300,7 +300,7 @@ public class DonationPageAdapter extends RecyclerView.Adapter<DonationPageAdapte
             tokenTv = itemView.findViewById(R.id.tokenTVId);
             collectorName = itemView.findViewById(R.id.nameCollectorId);
             collectorMobile = itemView.findViewById(R.id.mobileCollectorId);
-            collectorAddress = itemView.findViewById(R.id.addressCollectorId);
+            //collectorAddress = itemView.findViewById(R.id.addressCollectorId);
             collectorDetailLayout = itemView.findViewById(R.id.collectorDetailsLayout);
             approveRejectLayout = itemView.findViewById(R.id.approveRejectLayout);
             rejectBtn = itemView.findViewById(R.id.rejectId);

@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -100,6 +101,12 @@ public class RegisterActivity extends AppCompatActivity {
 
         if (strEmail.isEmpty()){
             email.setError("Email is Required");
+            email.requestFocus();
+            return;
+        }
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(strEmail).matches()){
+            email.setError("Invalid Email");
             email.requestFocus();
             return;
         }
