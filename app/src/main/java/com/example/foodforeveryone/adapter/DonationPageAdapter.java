@@ -63,7 +63,7 @@ public class DonationPageAdapter extends RecyclerView.Adapter<DonationPageAdapte
         holder.tokenTv.setText(donationDataModel.getUserToken());
         holder.collectorName.setText("Collector Name: " + donationDataModel.getCollectorName());
         holder.collectorMobile.setText("Collector Mobile: " + donationDataModel.getCollectorPhone());
-        holder.collectorAddress.setText("Collector Address: " + donationDataModel.getCollectorAddress());
+        //holder.collectorAddress.setText("Collector Address: " + donationDataModel.getCollectorAddress());
 
         if (donationDataModel.getStatus().equals("Approved")){
             holder.collectLayout.setVisibility(View.VISIBLE);

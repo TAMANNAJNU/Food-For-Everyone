@@ -174,12 +174,12 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onSuccess(AuthResult authResult) {
                 userID = firebaseAuth.getCurrentUser().getUid();
-                FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+                /*FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
                     @Override
                     public void onComplete(@NonNull Task<String> task) {
                         if (task.isSuccessful()){
                             firebaseToken = task.getResult();
-                            databaseReference.child("UserLoginToken").child(userID).setValue(firebaseToken);
+                            //databaseReference.child("UserLoginToken").child(userID).setValue(firebaseToken);
                             saveLoginSessionData(userID, progressDialog, firebaseToken);
                         }
                     }
@@ -190,7 +190,7 @@ public class LoginActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                         Toast.makeText(getApplicationContext(), "Token Doesn't Save, Please Login Again", Toast.LENGTH_LONG).show();
                     }
-                });
+                });*/
                 FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
                     @Override
                     public void onComplete(@NonNull Task<String> task) {
