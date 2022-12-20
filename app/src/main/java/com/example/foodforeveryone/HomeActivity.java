@@ -120,6 +120,16 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             //finish();
         }
 
+        if (item.getItemId() == R.id.aboutUsMenuId){
+            startActivity(new Intent(getApplicationContext(), AboutUsActivity.class));
+            //finish();
+        }
+
+        if (item.getItemId() == R.id.contactUsMenuId){
+            startActivity(new Intent(getApplicationContext(), ContactActivity.class));
+            //finish();
+        }
+
         if (item.getItemId() == R.id.logoutMenuId) {
             firebaseAuth.signOut();
             removeSharedPreference();
